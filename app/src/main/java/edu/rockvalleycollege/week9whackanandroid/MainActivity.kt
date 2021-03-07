@@ -3,6 +3,8 @@
  Class: CIS-245-OA010 (Spring 2021)
  App: Week 9 Whack an Android
 */
+
+
 package edu.rockvalleycollege.week9whackanandroid
 
 import android.content.res.Resources
@@ -107,7 +109,7 @@ class MainActivity : AppCompatActivity() {
 
             }
         }
-    }
+    }// end of Oncreate
 
     fun changeImage(){
 
@@ -127,4 +129,4 @@ class MainActivity : AppCompatActivity() {
     fun getScreenHeight(): Float {
         return Resources.getSystem().getDisplayMetrics().heightPixels / 1.4F
     }
-}
+}// End of Main Activity
