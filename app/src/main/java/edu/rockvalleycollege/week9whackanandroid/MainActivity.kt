@@ -1,15 +1,21 @@
+/*
+ Name: Curt Terpstra
+ Class: CIS-245-OA010 (Spring 2021)
+ App: Week 9 Whack an Android
+*/
 package edu.rockvalleycollege.week9whackanandroid
 
 import android.content.res.Resources
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.isVisible
 import java.util.*
 import kotlin.concurrent.timerTask
 
@@ -42,14 +48,14 @@ class MainActivity : AppCompatActivity() {
         //
         btnControl.setOnClickListener{
             if (btnControl.text == "Start"){
-                Toast.makeText (this, "Tap Chuck To Score¡",Toast.LENGTH_LONG) .show ()
+                Toast.makeText(this, "Tap Chuck To Score¡", Toast.LENGTH_LONG) .show ()
                 btnControl.text = "Stop"
                 score = 0
                 txtScore.text = "Score: " + score.toString()
                 btnImgButton.setTranslationX(-300F)
                 btnImgButton.setTranslationY(-300F)
                 timer = Timer()
-                timer.schedule(timerTask {changeImage()},3000)
+                timer.schedule(timerTask { changeImage() }, 3000)
                 changeImage()
                 btnImgButton.visibility = View.VISIBLE
             }else{
@@ -73,18 +79,25 @@ class MainActivity : AppCompatActivity() {
                 btnImgButton.setTranslationY(-300F)
                 btnImgButton.visibility = View.INVISIBLE
             }else {
+                GameBackGround.setBackgroundColor(Color.GREEN)
+                val handler = Handler()
+                handler.postDelayed(Runnable { GameBackGround.setBackgroundColor(Color.WHITE)}, 250)
                 txtScore.text = "Score: " + score.toString()
-            }
+                }
 
         }
 
         GameBackGround.setOnClickListener{
             println("Click")
             score -= 100
+            GameBackGround.setBackgroundColor(Color.RED)
+            val handler = Handler()
+            handler.postDelayed(Runnable { GameBackGround.setBackgroundColor(Color.WHITE)}, 250)
             txtScore.text = "Score: " + score.toString()
+
             if (score == 0 || score == -100){
                 btnImgButton.visibility = View.INVISIBLE
-                Toast.makeText (this, "Game Over", Toast.LENGTH_LONG) .show ()
+                Toast.makeText(this, "Game Over", Toast.LENGTH_LONG) .show ()
                 score = 0
                 txtScore.text = "Score: " + score.toString()
                 btnImgButton.setTranslationX(-300F)
@@ -104,7 +117,7 @@ class MainActivity : AppCompatActivity() {
         x = ((Math.random () * getScreenWidth()) + 50) .toFloat ()
         imgMole.setTranslationX(x)
         imgMole.setTranslationY(y)
-        timer.schedule(timerTask {changeImage()},1000)
+        timer.schedule(timerTask { changeImage() }, 1000)
     }
     fun getScreenWidth(): Float {
         return Resources.getSystem().getDisplayMetrics().widthPixels / 1.4F
